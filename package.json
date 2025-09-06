@@ -1,0 +1,55 @@
+{
+  "name": "nuxt3-realworld-app",
+  "type": "module",
+  "private": true,
+  "description": "Nuxt 3 RealWorld example app",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "test": "vitest",
+    "generate-api": "npx openapi-generator-cli generate  --generator-key V2.0",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "setup-git-hooks": "simple-git-hooks"
+  },
+  "dependencies": {
+    "vue": "^3.4.21",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.11.0",
+    "@nuxt/test-utils": "^3.12.0",
+    "@openapitools/openapi-generator-cli": "^2.13.1",
+    "@playwright/test": "^1.43.0",
+    "@testing-library/vue": "^8.0.3",
+    "@vue/test-utils": "^2.4.5",
+    "@vueuse/core": "^10.9.0",
+    "@vueuse/nuxt": "^10.9.0",
+    "consola": "^3.2.3",
+    "eslint": "8.40.0",
+    "eslint-plugin-format": "^0.1.0",
+    "happy-dom": "^13.10.1",
+    "lint-staged": "^15.2.2",
+    "msw": "^2.2.13",
+    "nuxt": "^3.11.1",
+    "organize-imports-cli": "^0.10.0",
+    "playwright-core": "^1.43.0",
+    "sass": "^1.72.0",
+    "simple-git-hooks": "^2.11.1",
+    "typescript": "^5.4.3",
+    "vitest": "^1.4.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx nuxi typecheck && npx lint-staged"
+  },
+  "lint-staged": {
+    "*.ts": "organize-imports-cli",
+    "*.{js,ts,vue}": "npx eslint --fix"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}
