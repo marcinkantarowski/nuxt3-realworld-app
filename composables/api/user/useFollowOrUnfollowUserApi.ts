@@ -20,5 +20,5 @@ export default async function useFollowOrUnfollowUserApi(opts: Options) {
         profile.following = previousFollowing
       },
     })
-  })
+  }, { immediate: false })
 }

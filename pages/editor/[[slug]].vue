@@ -47,6 +47,14 @@ onUnmounted(() => {
 function onArticleTagEnter(e: KeyboardEvent) {
   e.stopPropagation()
   e.stopImmediatePropagation()
+
+  const tag = articleTag.value.trim()
+
+  if (!tag)
+    return // Don't add empty tag
+  if (appliedTags.value.includes(tag))
+    return // Don't add duplicates
+
   appliedTags.value.push(articleTag.value)
   articleTag.value = ''
 }
@@ -126,7 +134,7 @@ async function onPublishArticle() {
                 <input
                   ref="articleTagInputRef" v-model="articleTag" type="text" name="tags" class="form-control"
                   placeholder="Enter tags"
-                  @keydown.enter="onArticleTagEnter"
+                  @keydown.enter.prevent="onArticleTagEnter"
                 >
                 <div v-if="appliedTags" class="tag-list">
                   <span v-for="t in appliedTags" :key="t" class="tag-default tag-pill"><i

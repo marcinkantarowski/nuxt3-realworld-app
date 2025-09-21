@@ -12,5 +12,5 @@ export default function useCreateArticleApi(opts: Options) {
       method: 'POST',
       body: { article },
     })
-  })
+  }, { immediate: false })
 }

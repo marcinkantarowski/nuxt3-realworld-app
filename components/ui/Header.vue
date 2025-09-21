@@ -31,13 +31,13 @@ const activeClass = 'active'
             Sign in
           </NuxtLink>
         </li>
-        <li v-if="!user" class="nav-item" :active-class="activeClass">
-          <NuxtLink to="/register" class="nav-link">
+        <li v-if="!user" class="nav-item">
+          <NuxtLink to="/register" class="nav-link" :active-class="activeClass">
             Sign up
           </NuxtLink>
         </li>
-        <li v-if="user" class="nav-item" :active-class="activeClass">
-          <NuxtLink class="nav-link" to="/settings">
+        <li v-if="user" class="nav-item">
+          <NuxtLink class="nav-link" to="/settings" :active-class="activeClass">
             <i class="ion-gear-a" />&nbsp;Settings
           </NuxtLink>
         </li>

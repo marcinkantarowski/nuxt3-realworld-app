@@ -16,12 +16,27 @@ const { data, error, pending } = await useLazyAsyncData<CreateUserOperationReque
 })
 
 async function onSubmit() {
+  if (!data.value)
+    return
+
   try {
     isSubmitting.value = true
-    await apiFetch(`/user`, {
+    const { token: _token, ...userDataWithoutToken } = data.value.user
+
+    const response = await apiFetch<Login200Response>(`/user`, {
       method: 'PUT',
-      body: data.value,
+      body: { user: userDataWithoutToken },
     })
+
+    if (response.user) {
+      user.value = response.user
+
+      if (response.user.token) {
+        const tokenCookie = useCookie('token')
+        tokenCookie.value = response.user.token
+      }
+    }
+
     await navigateTo(`/profile/${user.value?.username}`)
   }
   catch (e) {

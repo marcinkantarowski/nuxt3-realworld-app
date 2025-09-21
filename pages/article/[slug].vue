@@ -175,8 +175,8 @@ async function onDeleteArticle() {
             </div>
             <div class="card-footer">
               <img
-                :src="articleData?.article.author.image" class="comment-author-img"
-                :alt="`${articleData?.article.author.username} avatar`"
+                :src="user.image" class="comment-author-img"
+                :alt="`${user.username} avatar`"
               ><button
                 type="submit"
                 class="btn btn-sm btn-primary" :disabled="createCommentStatus === 'pending'"
