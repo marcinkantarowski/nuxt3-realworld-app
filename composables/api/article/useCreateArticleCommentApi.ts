@@ -1,10 +1,10 @@
-import { apiFetch } from '~/lib/api/apiFetch'
 import type { Comment, CreateArticleComment200Response, CreateArticleCommentRequest } from '~/lib/api/__generated__'
+import { apiFetch } from '~/lib/api/apiFetch'
 
 interface Options {
   articleSlug: MaybeRefOrGetter<string>
   comments: MaybeRefOrGetter<Comment[] | undefined>
-  commentBody: MaybeRefOrGetter<string>
+  commentBody: Ref<string> | (() => string) | string
 }
 
 export default function useCreateArticleCommentApi(opts: Options) {
@@ -19,14 +19,26 @@ export default function useCreateArticleCommentApi(opts: Options) {
         method: 'POST',
         body: { comment: { body: commentBody } },
         onResponse: ({ response }) => {
-          if (isRef(opts.commentBody))
-            opts.commentBody.value = ''
+          if (isRef(opts.commentBody)) {
+            try {
+              opts.commentBody.value = ''
+            }
+            catch {
+              // Comment body is readonly, ignore
+            }
+          }
           comments?.push?.(response._data.comment)
         },
         onRequestError: () => {
           comments = previousComments
-          if (isRef(opts.commentBody))
-            opts.commentBody.value = previousCommentBody
+          if (isRef(opts.commentBody)) {
+            try {
+              opts.commentBody.value = previousCommentBody
+            }
+            catch {
+              // Comment body is readonly, ignore
+            }
+          }
         },
       })
     },
