@@ -25,7 +25,7 @@ const silenceSomeSassDeprecationWarnings = {
 
       if (stack !== undefined) {
         // indent each line of the stack
-        stderr.write(`    ${stack.toString().trimEnd().replace(/\n/gm, '\n    ')}\n`)
+        stderr.write(`    ${stack.toString().trimEnd().replace(/\n/g, '\n    ')}\n`)
       }
 
       stderr.write('\n')
@@ -34,6 +34,7 @@ const silenceSomeSassDeprecationWarnings = {
 }
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2025-09-27',
   devtools: { enabled: true },
   css: ['~/assets/scss/main.scss'],
   alias: {
